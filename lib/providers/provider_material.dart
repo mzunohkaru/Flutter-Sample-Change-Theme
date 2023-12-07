@@ -1,14 +1,15 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-part 'provider.g.dart';
+part 'provider_material.g.dart';
+
 
 @riverpod
-class ThemeNotifier extends _$ThemeNotifier {
+class MaterialDesignNotifier extends _$MaterialDesignNotifier {
   @override
   bool build() {
     return true;
   }
 
-  void changeThemeSystem() {
+  void changeMaterialDesign() {
     state = !state;
   }
 }
