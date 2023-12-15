@@ -1,5 +1,5 @@
-import 'package:dark_theme_sample/providers/provider.dart';
-import 'package:dark_theme_sample/providers/provider_material.dart';
+import 'package:dark_theme_sample/providers/material_provider.dart';
+import 'package:dark_theme_sample/providers/theme_provider.dart';
 import 'package:dark_theme_sample/ui/view.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
@@ -17,27 +17,23 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeNotifier = ref.watch(themeNotifierProvider);
     final materialNotifier = ref.watch(materialDesignNotifierProvider);
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        theme: themeNotifier
-            ? FlexThemeData.light(
-                scheme: usedScheme,
-                appBarElevation: 0.5,
-                useMaterial3: materialNotifier,
-                typography:
-                    Typography.material2021(platform: defaultTargetPlatform),
-              )
-            : FlexThemeData.dark(
-                scheme: usedScheme,
-                appBarElevation: 2,
-                useMaterial3: materialNotifier,
-                typography:
-                    Typography.material2021(platform: defaultTargetPlatform),
-              ),
-        themeMode: themeMode,
-        home: const MainView());
+      themeMode: ref.watch(themeProvider),
+      theme: FlexThemeData.light(
+        scheme: usedScheme,
+        appBarElevation: 0.5,
+        useMaterial3: materialNotifier,
+        typography: Typography.material2021(platform: defaultTargetPlatform),
+      ),
+      darkTheme: FlexThemeData.dark(
+        scheme: usedScheme,
+        appBarElevation: 2,
+        useMaterial3: materialNotifier,
+        typography: Typography.material2021(platform: defaultTargetPlatform),
+      ),
+      home: const MainView(),
+    );
   }
 }

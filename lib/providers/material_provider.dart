@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-part 'provider_material.g.dart';
+part 'material_provider.g.dart';
 
 
 @riverpod

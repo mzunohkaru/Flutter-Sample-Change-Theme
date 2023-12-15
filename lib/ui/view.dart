@@ -1,5 +1,5 @@
-import 'package:dark_theme_sample/providers/provider.dart';
-import 'package:dark_theme_sample/providers/provider_material.dart';
+import 'package:dark_theme_sample/providers/material_provider.dart';
+import 'package:dark_theme_sample/providers/theme_provider.dart';
 import 'package:dark_theme_sample/widget/showcase_material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,19 +9,8 @@ class MainView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeNotifier = ref.watch(themeNotifierProvider);
+    final theme = ref.watch(themeProvider);
     final materialNotifier = ref.watch(materialDesignNotifierProvider);
-
-    ref.listen(
-      themeNotifierProvider,
-      (oldState, newState) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('テーマカラーが変更されました'),
-          ),
-        );
-      },
-    );
 
     final materialButton = IconButton(
         onPressed: () {
@@ -33,15 +22,17 @@ class MainView extends ConsumerWidget {
             : const Icon(Icons.filter_2));
 
     final themeButton = IconButton(
-        onPressed: () {
-          final notifier = ref.read(themeNotifierProvider.notifier);
-          notifier.changeThemeSystem();
-        },
-        icon: themeNotifier
+        icon: theme == ThemeMode.dark
             ? const Icon(Icons.light_mode)
-            : const Icon(Icons.dark_mode));
+            : const Icon(
+                Icons.dark_mode,
+              ),
+        onPressed: () {
+          final notifier = ref.read(themeProvider.notifier);
+          notifier.switchTheme(
+              theme == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark);
+        });
 
-    // 縦に並べる
     return Scaffold(
       appBar: AppBar(
         actions: [
