@@ -13,7 +13,6 @@ void main() {
 class MyApp extends ConsumerWidget {
   MyApp({super.key});
   FlexScheme usedScheme = FlexScheme.blueWhale;
-  ThemeMode themeMode = ThemeMode.system;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
